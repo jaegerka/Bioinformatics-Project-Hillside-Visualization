@@ -1,0 +1,461 @@
+[
+ {
+   "Plot ID": "CP1",
+   "Treatment": "Compost",
+   "Latitude": 4256152.4,
+   "Longitude": 686402.21,
+   "Plant Richness": 17,
+   "% Organic Matter": 4.9,
+   "% Soil Moisture": 25.2,
+   "Bulk Density (g": {
+      "cm3)": 0.859
+   },
+   "Soil pH": 6.26,
+   "%Sand": 50.78,
+   "%Silt": "40.39",
+   "%Clay": 17.47,
+   "Insect Species Richness": 4,
+   "Insect Diversity Index": 0.28,
+   "Plant Above-ground Biomass  (kg": {
+      "m2)": 1.41
+   },
+   "Acidity (meq": {
+      "100g)": 0.9
+   },
+   "CEC (meq": {
+      "100g)": 8.7
+   }
+},
+ {
+   "Plot ID": "CP2",
+   "Treatment": "Compost",
+   "Latitude (meters North)": "38.434398�",
+   "Longitude (meters East)": "-78.86446�",
+   "Plant Richness": 8,
+   "% Organic Matter": 7.6,
+   "% Soil Moisture": 33,
+   "Bulk Density (g": {
+      "cm3)": 0.87
+   },
+   "Soil pH": 6.781,
+   "%Sand": 49.35,
+   "%Silt": "39.5",
+   "%Clay": 24.5,
+   "Insect Species Richness": 3,
+   "Insect Diversity Index": 0.1504,
+   "Plant Above-ground Biomass  (kg": {
+      "m2)": 0.77
+   },
+   "Acidity (meq": {
+      "100g)": 0
+   },
+   "CEC (meq": {
+      "100g)": 11.6
+   }
+},
+ {
+   "Plot ID": "CP3",
+   "Treatment": "Compost",
+   "Latitude (meters North)": "382602.61",
+   "Longitude (meters East)": "785152.6",
+   "Plant Richness": 8,
+   "% Organic Matter": 3,
+   "% Soil Moisture": 26.6,
+   "Bulk Density (g": {
+      "cm3)": 0.99
+   },
+   "Soil pH": 6,
+   "%Sand": 57.52,
+   "%Silt": "16.18",
+   "%Clay": 26.3,
+   "Insect Species Richness": 8,
+   "Insect Diversity Index": 0.7497,
+   "Plant Above-ground Biomass  (kg": {
+      "m2)": 1.25
+   },
+   "Acidity (meq": {
+      "100g)": 1.4
+   },
+   "CEC (meq": {
+      "100g)": 6
+   }
+},
+ {
+   "Plot ID": "CP4",
+   "Treatment": "Compost",
+   "Latitude (meters North)": "4256161.45",
+   "Longitude (meters East)": "686366.36",
+   "Plant Richness": 3,
+   "% Organic Matter": 6,
+   "% Soil Moisture": 27.3,
+   "Bulk Density (g": {
+      "cm3)": 1.23
+   },
+   "Soil pH": 6.696,
+   "%Sand": 50.35,
+   "%Silt": "34.36",
+   "%Clay": 15.29,
+   "Insect Species Richness": 5,
+   "Insect Diversity Index": 0.767,
+   "Plant Above-ground Biomass  (kg": {
+      "m2)": 1.6
+   },
+   "Acidity (meq": {
+      "100g)": 0
+   },
+   "CEC (meq": {
+      "100g)": 12.6
+   }
+},
+ {
+   "Plot ID": "CP5",
+   "Treatment": "Compost",
+   "Latitude (meters North)": "4256102.11",
+   "Longitude (meters East)": "686381.04",
+   "Plant Richness": 16,
+   "% Organic Matter": 7.6,
+   "% Soil Moisture": 26.7,
+   "Bulk Density (g": {
+      "cm3)": 1.03
+   },
+   "Soil pH": 6.388,
+   "%Sand": 59.18,
+   "%Silt": "23.6",
+   "%Clay": 17.22,
+   "Insect Species Richness": 3,
+   "Insect Diversity Index": 0.59,
+   "Plant Above-ground Biomass  (kg": {
+      "m2)": 1.5
+   },
+   "Acidity (meq": {
+      "100g)": 0.4
+   },
+   "CEC (meq": {
+      "100g)": 13.1
+   }
+},
+ {
+   "Plot ID": "CP6",
+   "Treatment": "Compost",
+   "Latitude (meters North)": "4256137.6",
+   "Longitude (meters East)": "686357.05",
+   "Plant Richness": 12,
+   "% Organic Matter": 6.4,
+   "% Soil Moisture": 32.6,
+   "Bulk Density (g": {
+      "cm3)": 1.03
+   },
+   "Soil pH": 5.711,
+   "%Sand": 55.04,
+   "%Silt": "39.81",
+   "%Clay": 5.15,
+   "Insect Species Richness": 13,
+   "Insect Diversity Index": 0.78,
+   "Plant Above-ground Biomass  (kg": {
+      "m2)": 0.68
+   },
+   "Acidity (meq": {
+      "100g)": 2.3
+   },
+   "CEC (meq": {
+      "100g)": 8.9
+   }
+},
+ {
+   "Plot ID": "CP7",
+   "Treatment": "Compost",
+   "Latitude (meters North)": "4256117.18",
+   "Longitude (meters East)": "686351.19",
+   "Plant Richness": 11,
+   "% Organic Matter": 8.6,
+   "% Soil Moisture": 31.35,
+   "Bulk Density (g": {
+      "cm3)": 0.857
+   },
+   "Soil pH": 5.9,
+   "%Sand": 54.67,
+   "%Silt": "26.4",
+   "%Clay": 18.93,
+   "Insect Species Richness": 9,
+   "Insect Diversity Index": 0.853,
+   "Plant Above-ground Biomass  (kg": {
+      "m2)": 1.15
+   },
+   "Acidity (meq": {
+      "100g)": 0.9
+   },
+   "CEC (meq": {
+      "100g)": 9.9
+   }
+},
+ {
+   "Plot ID": "CP8",
+   "Treatment": "Compost",
+   "Latitude (meters North)": "4256184.13",
+   "Longitude (meters East)": "686300.91",
+   "Plant Richness": 5,
+   "% Organic Matter": 6.1,
+   "% Soil Moisture": 44.1,
+   "Bulk Density (g": {
+      "cm3)": 1.02
+   },
+   "Soil pH": 6.06,
+   "%Sand": 52.46,
+   "%Silt": "38.39",
+   "%Clay": 9.15,
+   "Insect Species Richness": 5,
+   "Insect Diversity Index": 0.12,
+   "Plant Above-ground Biomass  (kg": {
+      "m2)": 1.92
+   },
+   "Acidity (meq": {
+      "100g)": 1.5
+   },
+   "CEC (meq": {
+      "100g)": 9.5
+   }
+},
+ {
+   "Plot ID": "NA1",
+   "Treatment": "Natural",
+   "Latitude (meters North)": "4256120.9",
+   "Longitude (meters East)": "686404.77",
+   "Plant Richness": 8,
+   "% Organic Matter": 5.6,
+   "% Soil Moisture": 19.4,
+   "Bulk Density (g": {
+      "cm3)": 1.01
+   },
+   "Soil pH": 6.021,
+   "%Sand": 49.3,
+   "%Silt": "40.93",
+   "%Clay": 9.77,
+   "Insect Species Richness": 10,
+   "Insect Diversity Index": 0.66,
+   "Plant Above-ground Biomass  (kg": {
+      "m2)": 1.41
+   },
+   "Acidity (meq": {
+      "100g)": 1.5
+   },
+   "CEC (meq": {
+      "100g)": 8.5
+   }
+},
+ {
+   "Plot ID": "NA2",
+   "Treatment": "Natural",
+   "Latitude (meters North)": "382602.53",
+   "Longitude (meters East)": "785152.34W",
+   "Plant Richness": 24,
+   "% Organic Matter": 4.7,
+   "% Soil Moisture": 23.4,
+   "Bulk Density (g": {
+      "cm3)": 0.587
+   },
+   "Soil pH": 5.1,
+   "%Sand": 52.69,
+   "%Silt": "29.81",
+   "%Clay": 17.5,
+   "Insect Species Richness": 3,
+   "Insect Diversity Index": 0.65314,
+   "Plant Above-ground Biomass  (kg": {
+      "m2)": 1.15
+   },
+   "Acidity (meq": {
+      "100g)": 1.2
+   },
+   "CEC (meq": {
+      "100g)": 8
+   }
+},
+ {
+   "Plot ID": "NA3",
+   "Treatment": "Natural",
+   "Latitude (meters North)": "4256111.76",
+   "Longitude (meters East)": "686382.57",
+   "Plant Richness": 1,
+   "% Organic Matter": 6.7,
+   "% Soil Moisture": 19.58,
+   "Bulk Density (g": {
+      "cm3)": 1.18
+   },
+   "Soil pH": 5.357,
+   "%Sand": 65.2,
+   "%Silt": "20.9",
+   "%Clay": 13.98,
+   "Insect Species Richness": 6,
+   "Insect Diversity Index": 0.795,
+   "Plant Above-ground Biomass  (kg": {
+      "m2)": 0.885
+   },
+   "Acidity (meq": {
+      "100g)": 1.8
+   },
+   "CEC (meq": {
+      "100g)": 7.1
+   }
+},
+ {
+   "Plot ID": "NA4",
+   "Treatment": "Natural",
+   "Latitude (meters North)": "38�26'04.0\"N 78�51'53.8\"W",
+   "Longitude (meters East)": "",
+   "Plant Richness": 7,
+   "% Organic Matter": 7.5,
+   "% Soil Moisture": 26.9,
+   "Bulk Density (g": {
+      "cm3)": 1.19
+   },
+   "Soil pH": 6.77,
+   "%Sand": 50.6,
+   "%Silt": "24.04",
+   "%Clay": 25.36,
+   "Insect Species Richness": 4,
+   "Insect Diversity Index": 0.72,
+   "Plant Above-ground Biomass  (kg": {
+      "m2)": 0.89
+   },
+   "Acidity (meq": {
+      "100g)": 0
+   },
+   "CEC (meq": {
+      "100g)": 14.9
+   }
+},
+ {
+   "Plot ID": "NA5",
+   "Treatment": "Natural",
+   "Latitude (meters North)": "4256145.2",
+   "Longitude (meters East)": "686327.01",
+   "Plant Richness": 10,
+   "% Organic Matter": 4,
+   "% Soil Moisture": 30.07,
+   "Bulk Density (g": {
+      "cm3)": 0.968
+   },
+   "Soil pH": 6.515,
+   "%Sand": 42.89,
+   "%Silt": "N/A",
+   "%Clay": 23.8,
+   "Insect Species Richness": 4,
+   "Insect Diversity Index": 0.668,
+   "Plant Above-ground Biomass  (kg": {
+      "m2)": 1.58
+   },
+   "Acidity (meq": {
+      "100g)": 0.3
+   },
+   "CEC (meq": {
+      "100g)": 8.8
+   }
+},
+ {
+   "Plot ID": "NA6",
+   "Treatment": "Natural",
+   "Latitude (meters North)": "4256157.49",
+   "Longitude (meters East)": "686325.81",
+   "Plant Richness": 7,
+   "% Organic Matter": 5.8,
+   "% Soil Moisture": 33.22,
+   "Bulk Density (g": {
+      "cm3)": 1.1
+   },
+   "Soil pH": 6.631,
+   "%Sand": 58.59,
+   "%Silt": "29.13",
+   "%Clay": 12.29,
+   "Insect Species Richness": 7,
+   "Insect Diversity Index": 0.4375,
+   "Plant Above-ground Biomass  (kg": {
+      "m2)": 1.22
+   },
+   "Acidity (meq": {
+      "100g)": 0
+   },
+   "CEC (meq": {
+      "100g)": 10.2
+   }
+},
+ {
+   "Plot ID": "NA7",
+   "Treatment": "Natural",
+   "Latitude (meters North)": "4256113.5",
+   "Longitude (meters East)": "686341.4",
+   "Plant Richness": 14,
+   "% Organic Matter": 5.4,
+   "% Soil Moisture": 26.58,
+   "Bulk Density (g": {
+      "cm3)": 1.196
+   },
+   "Soil pH": 6.866,
+   "%Sand": 54.91,
+   "%Silt": "15.89",
+   "%Clay": 29.2,
+   "Insect Species Richness": 9,
+   "Insect Diversity Index": 0.692,
+   "Plant Above-ground Biomass  (kg": {
+      "m2)": 1.04
+   },
+   "Acidity (meq": {
+      "100g)": 0
+   },
+   "CEC (meq": {
+      "100g)": 32.5
+   }
+},
+ {
+   "Plot ID": "NA8",
+   "Treatment": "Natural",
+   "Latitude (meters North)": "3843417.3",
+   "Longitude (meters East)": "788653.9",
+   "Plant Richness": 5,
+   "% Organic Matter": 6.8,
+   "% Soil Moisture": null,
+   "Bulk Density (g": {
+      "cm3)": null
+   },
+   "Soil pH": null,
+   "%Sand": 62.35,
+   "%Silt": "",
+   "%Clay": null,
+   "Insect Species Richness": null,
+   "Insect Diversity Index": null,
+   "Plant Above-ground Biomass  (kg": {
+      "m2)": null
+   },
+   "Acidity (meq": {
+      "100g)": 0
+   },
+   "CEC (meq": {
+      "100g)": 17.8
+   }
+},
+ {
+   "Plot ID": "NA9",
+   "Treatment": "Natural",
+   "Latitude (meters North)": "382603.04",
+   "Longitude (meters East)": "785155.94",
+   "Plant Richness": 5,
+   "% Organic Matter": 5.4,
+   "% Soil Moisture": 31,
+   "Bulk Density (g": {
+      "cm3)": 0.878
+   },
+   "Soil pH": 5.765,
+   "%Sand": 64.48,
+   "%Silt": "",
+   "%Clay": null,
+   "Insect Species Richness": 2,
+   "Insect Diversity Index": 0.5,
+   "Plant Above-ground Biomass  (kg": {
+      "m2)": 0.6048
+   },
+   "Acidity (meq": {
+      "100g)": 2.2
+   },
+   "CEC (meq": {
+      "100g)": 13
+   }
+}
+]
