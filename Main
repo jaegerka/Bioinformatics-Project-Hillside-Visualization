@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+  </style>
+</head>
+
+<body>
+   <script 	src="https://www.google.com/maps/@38.4341529,-78.8658454,147a,35y,83.06h,28.12t/data=!3m1!1e3">
+  </script>
+  <script>
+    // Feel free to change or delete any of the code you see in this editor!
+  
+    var svg = d3.select("body").append("svg")
+      .attr("width", 10000000)
+      .attr("height", 10000000)
+
+  
+    
+   d3.select("svg").selectAll("rect")
+   
+    d3.json("HillsideData.json", function(err, mydata) {
+    console.log("Data:", mydata) 
+    var rectGroup = d3.select("svg").selectAll("g")
+   			.data(mydata)
+      	.enter()
+       	.append("g")
+    rectGroup.append("rect")
+      	.attr("x", function (d) {return mydata.Longitude})
+      	.attr("y", function (d) {return mydata.Latitude})
+      	.attr("width", 100)
+      	.attr("height", 10)
+      	.style("fill", "brown")
+       	.style("stroke", "black")
+       	.style("stroke-width", 3) })
+      
+    
+    
+ 
+     
+    // {d3.select("svg").selectAll("rect")
+    //   var rectGroup = d3.select("svg").selectAll("g")
+   	//		.data(mydata)
+    //  	.enter()
+     //  	.append("g")
+    //  rectGroup.append("rect")
+     // 	.attr("x", 100)
+     // 	.attr("y", 100)
+     // 	.attr("width", 100)
+     // 	.attr("length", 100)
+     // 	.attr("fill", "green")
+     //  	.attr("stroke", "black")
+     //  	.attr("stroke-width", 3) }})
+    
+
+  </script>
+</body>
