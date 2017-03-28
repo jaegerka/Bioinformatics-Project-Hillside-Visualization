@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<head>
+  <meta name="viewport" content="intial-scale=1.0">
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+  <style>
+    body {margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+     #map { 
+      position:absolute; 
+      width: 100%;
+      height: 100%;
+    }
+ </style>
+<link rel="stylesheet" href="/maps/documentation/javascript/demos/demos.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css">
+</head>
+
+<body>
+   <div id="map"></div>
+  <script>
+   //Creates Google Maps Background
+    function initMap() {
+        // Create a map object and specify the DOM element for display.
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 38.434084, lng: -78.864970},
+          scrollwheel: true,
+          zoom: 30,
+        	mapTypeId: "satellite",
+          heading: 60 
+        }); }
+    
+    //Creates the overlay connecting the SVG and the map
+    var overlaySVG= 
+    function initOverlay() {
+      SVGOverlay.prototype = new google.maps.OverlayView();
+      /** @constructor */
+	
+      function SVGOverlay(bounds,image,map){
+		// Initialize all properties.
+		this.bounds_ = bounds;
+		this.image_ = image;
+		this.map_ = map;
+		this.div_ = null;
+		this.setMap(map);
+	}
+      
+    
+    
+    SVGOverlay.prototype.onAdd = function() {
+      var div=document.createElement("div")
+		div.style.borderStyle = 'none';
+		div.style.borderWidth = '0px';
+		div.style.position = 'absolute';
+
+		// Load the inline svg element and attach it to the div.
+		var svg = document.getElementById('mySVG');
+		svg.style.padding = '0px';
+		svg.style.width = '100%';
+		svg.style.height = '100%';
+		svg.style.position = 'absolute';
+		div.appendChild(mySVG);
+		this.div_ = div;
+		// Add the element to the "overlayLayer" pane.
+		var panes = this.getPanes();
+		panes.overlayLayer.appendChild(div);}
+    
+    SVGOverlay.prototype.draw = function() {
+		var overlayProjection = this.getProjection();
+		var sw = overlayProjection.fromLatLngToDivPixel(MyMap.getBounds().getSouthWest());
+		var ne = overlayProjection.fromLatLngToDivPixel(MyMap.getBounds().getNorthEast());
+		// Resize the image's div to fit the indicated dimensions.
+		var div = this.div_;
+
+		div.style.left=sw.x+"px"
+		div.style.top=ne.y+"px"
+		div.style.width=(ne.x - sw.x)+"px"
+		div.style.height=(sw.y - ne.y)+"px"
+	};
+
+	var swBound=MyMap.getBounds().getSouthWest()
+	var neBound=MyMap.getBounds().getNorthEast()
+	var boundsOverlay = new google.maps.LatLngBounds(swBound,neBound);
+	//---define this app's overlay---
+
+	overlaySVG = new SVGOverlay(boundsOverlay,mySVG,MyMap); }
+    
+    function resizeOverlay() {
+		overlaySVG.draw()
+
+	var scale = Math.pow(2, MyMap.getZoom());
+
+	var nw = new google.maps.LatLng(
+	MyMap.getBounds().getNorthEast().lat(),
+	MyMap.getBounds().getSouthWest().lng()
+	);
+
+	var NW = MyMap.getProjection().fromLatLngToPoint(nw);
+	var symbols=mySVG.getElementsByTagName("g")
+	for(var k=0;k<symbols.length;k++)
+	{
+		var symbol=symbols.item(k)
+		var lat=parseFloat(symbol.getAttribute("lat"))
+		var lon=parseFloat(symbol.getAttribute("lon"))
+
+		var position=new google.maps.LatLng(lat, lon);
+
+		var worldCoordinate = MyMap.getProjection().fromLatLngToPoint(position);
+		var pixelOffset = new google.maps.Point(
+		Math.floor((worldCoordinate.x - NW.x) * scale),
+		Math.floor((worldCoordinate.y - NW.y) * scale)
+		);
+
+		symbol.setAttribute("transform","translate("+pixelOffset.x+" "+pixelOffset.y+")scale(.3)")
+	}}
+
+    
+
+
+   
+       
+ 
+    
+ 
+ 
+
+  </script>
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkEjkS9E2RAIJodE6gFHseUQx8_Cx2AiE&callback=initMap"
+    async defer></script>
+</body>
