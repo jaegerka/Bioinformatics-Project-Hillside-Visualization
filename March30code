@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<head>
+  <meta name="viewport" content="intial-scale=1.0, user-scalable=no"/>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkEjkS9E2RAIJodE6gFHseUQx8_Cx2AiE&callback=initMap"
+    async defer></script>
+  <style>
+    body
+    {margin:0;position:fixed;top:0;right:0;bottom:0;left:0; } 
+    #map 
+    {position:absolute; 
+      width: 100%;
+      height: 100%; }
+    #mapid {height: 180px; }
+  </style>
+<link rel="stylesheet" href="/maps/documentation/javascript/demos/demos.css">
+</head>
+<body>
+  
+  <div id="map"></div>
+  <script>
+ 
+ //Creates Google Maps Background
+    function initMap() {
+        // Create a map object and specify the DOM element for display.
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 38.434084, lng: -78.864970},
+          scrollwheel: true,
+          zoom: 30,
+        	mapTypeId: "satellite",
+          //rotates the map
+          heading: 60,});}
+    
+//Importing/logging the data into the console
+    d3.json("HillsideData.json", function(error, data) {
+		console.log("data:", data);})
+            
+//Creates the overlay connecting the SVG and the map
+    function OOverlay() {
+//Adds a container when the overlay is added to the map 
+      var overlay =  new google.maps.OverlayView();
+      overlay.onAdd = function() {    
+          var svg = d3.select(this.getPanes().overlayPanes).append("svg")
+                        .attr("class", "Plots");
+      console.log("function")}
+    			
+      		overlay.onAdd();
+    
+      overlay.draw = function() {
+        
+     		var plotgroup = layer.selectAll("svg")
+        	.data(data)
+        	//.each(transform)
+     		.enter().append("svg")
+        	//.each(transform)
+        	.attr("class", "plot")
+        	
+        d3.select("svg").selectAll("rect")
+        plotgroup.append("rect")
+      		.data(data)
+          .enter()
+          .attr("x", d3.latitude)
+      		.attr("y", d3.longitude)
+     			.attr("length", 100)
+     			.attr("width", 100)
+      		.attr("fill", "brown")}
+      
+ 
+      
+      
+      
+    
+      
+    
+ d3.select("svg").selectAll("rect")
+    
+ 
+  
+    
+   d3.json("HillsideData.json", function(err, data) {
+      console.log("data:", data);
+      
+      var plots = g.selectAll("circle.dot")
+        .data(data.features)
+    
+      })}
+
+    
+
+   
+       
+ 
+    
+ 
+ 
+
+  </script>
+ 
+</body>
