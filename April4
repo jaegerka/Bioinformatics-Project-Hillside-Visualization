@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<head>
+  <meta name="viewport" content="intial-scale=1.0, user-scalable=no"/>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>  
+  <style>
+    body
+    {margin:0;position:fixed;top:0;right:0;bottom:0;left:0; } 
+    #map 
+    {position:absolute; 
+      width: 100%;
+      height: 100%; }
+    #mapid {height: 180px;}
+  </style>
+<link rel="stylesheet" href="/maps/documentation/javascript/demos/demos.css">
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkEjkS9E2RAIJodE6gFHseUQx8_Cx2AiE&callback=initMap"
+    async defer></script>
+</head>
+<body>
+  
+  <div id="map"></div>
+
+  <script>
+ 
+ //Creates Google Maps Background
+   
+    
+    function initMap() {
+        // Create a map object and specify the DOM element for display.
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: 
+          {lat: 38.434084, lng: -78.864970},
+          scrollwheel: true,
+          zoom: 30,
+        	mapTypeId: "satellite",
+          //rotates the map
+          heading: 60,});
+    console.log("producing map")
+ 
+
+        
+ d3.json("HillsideData.json", function(err, data) {
+    var plots = d3.select("body").selectAll("plots")	
+    .data(data.features) 
+    .enter()
+    .each(function(d) {
+      console.log(d);
+    var rectangle = new google.maps.Rectangle({
+          strokeColor: 'black',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: function () {
+            if (d.Treatment == "Compost") {return "brown";}
+            else if (d.Treatment == "Natural") {return "green"}},
+          fillOpacity: 0.3,
+          map: map,
+          bounds: {
+            north: +d.Latitude,
+            south:  +d.Latitude - 0.00012,
+            east: +d.Longitude,
+            west: +d.Longitude - 0.00012}
+    }
+	)})  
+   
+    })
+  
+    }
+ 
+   
+ 
+    
+ 
+ 
+
+  </script>
+ 
+</body>
