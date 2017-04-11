@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<head>
+  <meta name="viewport" content="intial-scale=1.0, user-scalable=no"/>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>  
+  <style>
+    body
+    {margin:0;position:fixed;top:0;right:0;bottom:0;left:0; } 
+    #map {position:absolute;width: 100%;height: 100%; }
+    #mapid {height: 180px;}
+ 		
+    #legend {font-family: Arial, sans-serif;background: #fff;padding: 10px;margin: 10px; border: 3px solid #000;}
+    #legend h3 {margin-top: 0;}
+		#legend img {vertical-align: middle;}
+  
+  </style>
+
+  <link rel="stylesheet" href="/maps/documentation/javascript/demos/demos.css">
+	
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkEjkS9E2RAIJodE6gFHseUQx8_Cx2AiE&callback=initMap"
+    async defer></script>
+
+</head>
+
+<body>
+  
+  <div id="map"></div>
+	<div id="legend">
+    <h3>Legend</h3>
+  </div>
+  <div id="SVG"> </div>
+  
+  <script>
+
+ //Creates Google Maps Background
+    function initMap() {
+        // Create a map object and specify the DOM element for display.
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: 
+          {lat: 38.434084, lng: -78.864970},
+          scrollwheel: true,
+          zoom: 30,
+        	mapTypeId: "satellite",
+          //rotates the map
+          heading: 60,}
+          );
+ 
+ //Makes a variable for each icon annd has specified info (name, url)       
+      var icons = {
+       	PlantRichness: {
+        name: 'Plant Richness',    			icon:'http://orig02.deviantart.net/c605/f/2017/054/6/5/flower_icon_by_redqueenallison-db03ww0.png'},
+       	InsectRichness: {
+        name: 'Insect Richness',
+        icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Crystal_Project_bug.png/50px-Crystal_Project_bug.png'},
+        SoilMoisture: {
+        name: 'Soil Moisture',
+        icon: 'http://a.deviantart.net/avatars/s/p/spudfuzz.png?10'}
+        };
+
+   //the markers access these features for information. 
+ d3.json("data.json", function(err, data) {
+    var images = d3.select("body").selectAll("images")	
+    		.data(data.features) 
+    		.enter()
+    		.each(function(d) {  
+     			 var features = [
+          		{position: new google.maps.LatLng(d.Latitude - 0.00003, d.Longitude - 0.000115),
+            		type: 'PlantRichness'},  
+          		{position: new google.maps.LatLng(d.Latitude - 0.00008, d.Longitude - 0.000115),
+           		 type: 'InsectRichness'}, 
+          		{position: new google.maps.LatLng(d.Latitude - 0.00012, d.Longitude - 0.000115),
+          		  type: 'SoilMoisture'}
+           ];
+
+          
+          
+          
+          
+          
+          
+    // Create markers for each of the featurs above. It loops through each feature and and creates a marker with the specified position, and type, which is defined above.
+        features.forEach(function(feature) {
+          var marker = new google.maps.Marker({
+            position: feature.position,
+            icon: icons[feature.type].icon,
+            map: map});
+        });})
+    })
+      
+    
+    
+    
+    
+    
+//For the legend. It accesses the legend div (at top) and appends things to it. Maybe this is where checkboxes should go?
+        var legend = document.getElementById('legend');
+        for (var key in icons) {
+          var type = icons[key];
+          var name = type.name;
+          var icon = type.icon;
+          var div = document.createElement('div');
+          div.innerHTML = '<input type = "checkbox" onclick="Show()">' + name +'<img src="' + icon + '"> ';
+          legend.appendChild(div);}
+
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(legend);
+
+   
+  
+
+   
+   
+   
+   
+   
+//Creating Plots   
+ d3.json("data.json", function(err, data) {
+    var plots = d3.select("body").selectAll("plots")	
+    .data(data.features) 
+    .enter()
+    .each(function(d) {
+    	if (d.Treatment == "Compost") {
+    	var rectangle = new google.maps.Rectangle({
+          strokeColor: 'black',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#654321",
+         	fillOpacity: 1.0,
+          map: map,
+          bounds: {
+            north: +d.Latitude,
+            south: +d.Latitude - 0.00014,
+            east: +d.Longitude,
+            west: +d.Longitude - 0.00014}})}
+    	else if (d.Treatment == "Natural") {
+        var rectangle = new google.maps.Rectangle({
+          strokeColor: 'black',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "green",
+         	fillOpacity: 1,
+          map: map,
+          bounds: {
+            north: +d.Latitude,
+            south: +d.Latitude - 0.00014,
+            east: +d.Longitude,
+            west: +d.Longitude - 0.00014}})}
+    }     
+         )})
+    
+//Create Overlay layer
+    var bounds = new google.maps.LatLngBounds(    
+     new google.maps.LatLng(38.434084, -78.864970),
+     new google.maps.LatLng(38.534084, -78.764970))
+             
+ function Overlay(bounds, image, map) {
+        // Initialize all properties.
+        this.bounds_ = bounds;
+        this.image_ = image;
+        this.map_ = map;}  
+   
+var Overlay = new google.maps.OverlayView();
+Overlay.onAdd = function CreateOverlay() { 
+  d3.json("data.json", function(err, data) {
+   var div = document.createElement('div');
+        div.style.borderStyle = 'none';
+        div.style.borderWidth = '0px';
+        div.style.position = 'absolute';})}
+
+// Create the img element and attach it to the div.
+var img = document.createElement('img');
+        img.src = "http://www.pngall.com/wp-content/uploads/2016/03/Tree-Free-Download-PNG.png"
+        img.style.width = '20%';
+        img.style.height = '20%';
+        img.style.position = 'absolute';
+        SVG.appendChild(img);
+    }
+
+ 
+
+  </script>
+ 
+</body>
