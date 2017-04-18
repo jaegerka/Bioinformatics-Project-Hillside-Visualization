@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<head>
+  <meta name="viewport" content="intial-scale=1.0, user-scalable=no"/>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>  
+  <style>
+    body
+
+    {margin:0;position:fixed;top:0;right:0;bottom:0;left:0; } 
+    #map {position:absolute;width: 100%;height: 100%; }
+    #mapid {height: 180px;}
+ 		
+    #legend {font-family: Arial, sans-serif;background: #fff;padding: 10px;margin: 10px; border: 3px solid #000;}
+    #legend h3 {margin-top: 0;}
+		#legend img {vertical-align: middle;}
+  
+  </style>
+
+  <link rel="stylesheet" href="/maps/documentation/javascript/demos/demos.css">
+	
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkEjkS9E2RAIJodE6gFHseUQx8_Cx2AiE&callback=initMap"
+    async defer></script>
+
+</head>
+
+<body>
+  
+  <div id="map"></div>
+	<div id="legend">
+    <h3>Legend</h3>
+  </div>
+  <div id="SVG"> </div>
+  
+  <script>
+
+    
+      
+ //Creates Google Maps Background
+    
+    function initMap() {
+        // Create a map object and specify the DOM element for display.
+   map = new google.maps.Map(document.getElementById('map'), {
+          center: 
+          {lat: 38.434084, lng: -78.864970},
+          scrollwheel: true,
+          zoom: 30,
+        	mapTypeId: "satellite",
+          //rotates the map
+          heading: 60,}
+          );
+
+//Creates plots with color based treatment 
+d3.json("data.json", function(err, data) {
+    var plots = d3.select("body").selectAll("plots")	
+    .data(data.features) 
+    .enter()
+    .each(function(d) {
+    	if (d.Treatment == "Compost") {
+    	var rectangle = new google.maps.Rectangle({
+          strokeColor: 'black',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#654321",
+         	fillOpacity: 1.0,
+          map: map,
+          bounds: {
+            north: +d.Latitude,
+            south: +d.Latitude - 0.00014,
+            east: +d.Longitude,
+            west: +d.Longitude - 0.00014}})}
+    	else if (d.Treatment == "Natural") {
+        var rectangle = new google.maps.Rectangle({
+          strokeColor: 'black',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "green",
+         	fillOpacity: 1,
+          map: map,
+          bounds: {
+            north: +d.Latitude,
+            south: +d.Latitude - 0.00014,
+            east: +d.Longitude,
+            west: +d.Longitude - 0.00014}})}
+    }     
+         )
+    console.log("data:", data)})
+    
+      
+ 
+      
+ 
+//Creates the legend with checkboxes
+var legend = document.getElementById('legend');
+for (var key in icons) {
+          var type = icons[key];
+          var name = type.name;
+          var icon = type.icon;
+          var div = document.createElement('div');
+          div.innerHTML = '<input type = "checkbox" class = "myCheckbox" onclick="show()">' + name +'<img src="' + icon + '"> '
+          legend.appendChild(div);
+        }
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(legend);
+    console.log("icons:", icons)
+    console.log("info:", icons.PlantRichness)} 
+    
+   
+              
+  
+    
+    
+//Creates a function that runs certain functions based on the icon variable below     
+function show() {
+  d3.select("body").selectAll("icons")	
+   // .data(icons) 
+  if (icons.PlantRichness.name == "Plant Richness") {return plants() + console.log("returning plants")} 
+  else if (icons.InsectRichness.name == "Insect Richness") {return insects() + console.log("returning insects")}
+	else if (icons.name == "Soil Moisture") {return soilmoisture() + console.log("returning soil moisture")} 
+
+console.log("running show function")
+
+}  
+ 
+    
+    
+    
+//Creates icons with a name for each of the variables
+var icons = {	
+      	PlantRichness: {
+          name: 'Plant Richness',
+          icon:'http://orig02.deviantart.net/c605/f/2017/054/6/5/flower_icon_by_redqueenallison-db03ww0.png'},
+      InsectRichness: {
+        name: 'Insect Richness',
+        icon:  'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Crystal_Project_bug.png/50px-Crystal_Project_bug.png', },
+      SoilMoisture: {
+        name: 'Soil Moisture',
+        icon: 'http://a.deviantart.net/avatars/s/p/spudfuzz.png?10'},
+        }
+    		
+
+//Creates a function that shows plant richness that is referred to in the checkbox
+function plants() {
+    d3.json("data.json", function(err, data) {
+      var images = d3.select("body").selectAll("images")	
+          .data(data.features) 
+          .enter()
+      		.each(function (d) { 
+ 							if(d3.selectAll(".myCheckbox").property("checked")){
+       				console.log("plants checked"); 
+            var features = [
+                {position: new google.maps.LatLng(d.Latitude - 0.00003, d.Longitude - 0.000115),
+                 type: 'PlantRichness'},]
+             
+          features.forEach(function(feature) {
+              var marker = new google.maps.Marker({
+                size: new google.maps.Size(10,10),
+                position: feature.position,
+                icon: icons[feature.type].icon,
+                map: map,})
+              var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Plant Richness</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>Plant Richness</b>, = d.PlantRichness </p>'+
+            '</div>'+
+            '</div>';
+    
+    var infowindow = new google.maps.InfoWindow({
+          content: contentString})
+    marker.addListener('click', function() {
+       infowindow.open(map, marker);}) })}  
+                
+    				else {
+    				console.log("plants unchecked");
+    				d3.select("body").selectAll("images")
+              .data(data.features)
+              .remove()
+              .exit()
+      	
+            }})
+          })} 
+
+   
+
+      
+        
+    
+    
+
+  function insects() {
+    d3.json("data.json", function(err, data) {
+      var images = d3.select("body").selectAll("images")	
+          .data(data.features) 
+          .enter()
+          .each(function (d) { 
+ 							if(d3.selectAll(".myCheckbox").property("checked")){
+       				console.log("insects checked"); 
+             var features = [
+             {position: new google.maps.LatLng(d.Latitude - 0.00012, d.Longitude - 0.000115),
+          		  type: 'InsectRichness'},]
+          features.forEach(function(feature) {
+              var marker = new google.maps.Marker({
+                position: feature.position,
+                icon: icons[feature.type].icon,
+                anchor: new google.maps.Point(feature.position),
+                map: map,
+            })})   
+          }})
+     
+      
+    console.log("showing insect richness")})}
+
+    
+function soilmoisture() {
+    d3.json("data.json", function(err, data) {
+      var images = d3.select("body").selectAll("images")	
+          .data(data.features) 
+          .enter()
+          .each(function(d) {  
+             var features = [
+                {position: new google.maps.LatLng(d.Latitude - 0.00008, d.Longitude - 0.000115),
+                  type: 'InsectRichness'},]
+          features.forEach(function(feature) {
+              var marker = new google.maps.Marker({
+                position: feature.position,
+                icon: icons[feature.type].icon,
+                anchor: new google.maps.Point(feature.position),
+                map: map,
+            })})   
+          })})
+     
+      
+    console.log("showing insect richness")}   
+		
+
+  </script>
+ 
+</body>
