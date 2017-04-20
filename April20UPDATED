@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<head>
+  <meta name="viewport" content="intial-scale=1.0, user-scalable=no"/>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>  
+  <style>
+    body
+
+    {margin:0;position:fixed;top:0;right:0;bottom:0;left:0; } 
+    #map {position:absolute;width: 100%;height: 100%; }
+    #mapid {height: 180px;}
+ 		
+    #legend {font-family: Arial, sans-serif;background: #fff;padding: 10px;margin: 10px; border: 3px solid #000;}
+    #legend h3 {margin-top: 0;}
+		#legend img {vertical-align: middle;}
+  
+  </style>
+
+  <link rel="stylesheet" href="/maps/documentation/javascript/demos/demos.css">
+	
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkEjkS9E2RAIJodE6gFHseUQx8_Cx2AiE&callback=initMap"
+    async defer></script>
+
+</head>
+
+<body>
+  
+  <div id="map"></div>
+	<div id="legend">
+    <h3>Legend</h3>
+  </div>
+  <div id="SVG"> </div>
+  
+  <script>
+
+    
+      
+ //Creates Google Maps Background
+    
+    function initMap() {
+        // Create a map object and specify the DOM element for display.
+   map = new google.maps.Map(document.getElementById('map'), {
+          center: 
+          {lat: 38.434024, lng: -78.865000},
+          scrollwheel: false,
+          zoom: 30,
+     zoomControl: false,
+     scaleControl: true,
+        	mapTypeId: "satellite",
+          //rotates the map
+          heading: 60,}
+          );
+ 
+d3.json("data.json", function(err, data) {
+  console.log("data:", data) 
+  var plots = d3.select("body").selectAll("plots")	
+    .data(data.features) 
+    .enter()
+    .each(function(d) {
+    	if (d.Treatment == "Compost") {
+        var rectangle = new google.maps.Rectangle({
+          strokeColor: 'black',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#654321",
+         	fillOpacity: 1.0,
+          map: map,
+          bounds: {
+            north: +d.Latitude,
+            south: +d.Latitude - 0.00014,
+            east: +d.Longitude,
+            west: +d.Longitude - 0.00014}})
+        }
+    	
+      else if (d.Treatment == "Natural") {
+        var rectangle = new google.maps.Rectangle({
+          strokeColor: 'black',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "green",
+         	fillOpacity: 1,
+          map: map,
+          bounds: {
+            north: +d.Latitude,
+            south: +d.Latitude - 0.00014,
+            east: +d.Longitude,
+            west: +d.Longitude - 0.00014}})}
+   
+     function label(){
+        var myLatlng = new google.maps.LatLng(d.Latitude - 0.000075, d.Longitude)
+        var labelIndex = 2 
+        var marker = new google.maps.Marker({
+   				position: myLatlng,
+    			label: d.ID,
+          icon: 'http://s7d2.scene7.com/is/image/DesignWithinReach/COLOR_white?$swatch$'
+          })
+        var contentString = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+'<div id="bodyContent">'+
+        '<p><b>Plot Data</b> </p>'+
+        '</div>'+'</div>';
+    
+    var infowindow = new google.maps.InfoWindow({
+          content: contentString + "Plot ID: " + d.ID + "<br/>" + "Treatment: " + d.Treatment + "<br/>" + "Coordinates:      " + "(" + d.Latitude + "," + d.Longitude + ")" })
+    marker.addListener('click', function() {
+       infowindow.open(map, marker);})
+        marker.setMap(map)}
+         
+    
+    label()
+ })})
+	
+    
+d3.select('input').select('nutrient')      
+ 
+      
+ 
+//For the legend. It accesses the legend div (at top) and appends things to it. Maybe this is where checkboxes should go?
+var legend = document.getElementById('legend');
+for (var key in icons) {
+          var type = icons[key];
+          var name = type.name;
+          var icon = type.icon;
+          var div = document.createElement('div');
+          if (name == "Plant Data") {
+  				div.innerHTML = '<input type = "checkbox" onclick="plants()">' + name +'<img src="' + icon + '"> ' }
+  				else if (name == "Insect Data") {
+            div.innerHTML = '<input type = "checkbox" onclick="insects()">' + name +'<img src="' + icon + '"> ' 
+          }
+  			else if (name == "Soil Moisture") {
+          div.innerHTML = '<input type = "checkbox" onclick="soilmoisture()" id: "soil">'  + name +'<img src="' + icon + '"> ' 
+        }
+          else if (name == "Nutrient Content") {
+          div.innerHTML = '<input type = "checkbox" onclick="nutrients()" id: "nutrient">'  + name +'<img src="' + icon + '"> ' 
+        }
+  				else if (name == "Cation Exchange Capacity") {
+          div.innerHTML = '<input type = "checkbox" onclick="cations()" id: "CEC">'  + name +'<img src="' + icon + '"> ' 
+        }
+  				else if (name == "pH") {
+          div.innerHTML = '<input type = "checkbox" onclick="pH()" id: "pH">'  + name +'<img src="' + icon + '"> ' 
+        }
+  			else if (name == "Soil Composition") {
+          div.innerHTML = '<input type = "checkbox" onclick="Composition()" id: "Composition">'  + name +'<img src="' + icon + '"> ' 
+        }
+  else if (name == "Soil Compaction") {
+          div.innerHTML = '<input type = "checkbox" onclick="Pressure()" id: "Composition">'  + name +'<img src="' + icon + '"> ' 
+        }
+          legend.appendChild(div);}
+        
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(legend);
+    console.log("icons:", icons)}
+    
+    
+ var icons = {	
+   		
+   InsectData: {
+        name: 'Insect Data',
+        icon:  'http://findicons.com/files/icons/2428/woocons/32/bug.png', },
+      PlantData: {
+          name: 'Plant Data',    			
+          icon:'http://www.happy-leaf.jp/favicon.ico'},
+   Composition: {
+   			name: 'Soil Composition',
+        icon: 'http://minecraft.novaskin.me/images/minecraft.png'},   	
+         SoilMoisture: {
+        name: 'Soil Moisture',
+        icon: 'https://cdn2.iconfinder.com/data/icons/weather-flat-icons-2/320/7-32.png'},
+    Pressure: {
+        name: 'Soil Compaction',
+        icon: 'http://static3.industrybuying.com/navigation/161209testing-measuring.png'
+      },
+   Cations: {
+   			name: 'Cation Exchange Capacity',
+   			icon: 'http://pnga.mypng.cn/2333/plus-sign.png.1.png' }, 
+   NutrientContent: {
+        name: 'Nutrient Content',
+        icon: 'http://air.utah.gov/images/CircleGraphIcon2.png'},
+   		
+   pH: {
+        name: 'pH',
+        icon: 'http://air.utah.gov/images/CircleCurrentIcon2.png'
+      },
+  
+   
+ 
+ }  
+              
+  
+    
+      
+    
+
+
+    		
+
+
+function plants() {
+   
+    d3.json("data.json", function(err, data) {
+      var images = d3.select("body").selectAll("images")	
+          .data(data.features) 
+          .enter()
+          .each(function(d) {  
+             var features = [
+               {position: new google.maps.LatLng(d.Latitude - 0.000075, d.Longitude - 0.000065),
+                 type: 'PlantData'},]
+     features.forEach(function(feature) {
+        var marker = new google.maps.Marker({
+          size: new google.maps.Size(10,10),
+          position: feature.position,
+           icon: icons[feature.type].icon,
+                map: map,})
+
+    var contentString = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+'<div id="bodyContent">'+
+        '<p><b>Plant Data</b> </p>'+
+        '</div>'+'</div>';
+    
+    var infowindow = new google.maps.InfoWindow({
+          content: contentString + "Plant Richness: " + d.PlantRichness + " plant(s)" + "<br/>" + "Plant Diversity Index: " + d.PlantDiversity + "<br/>" + "Plant Biomass: " + d.PlantBiomass + "kg/m^2"})
+    marker.addListener('click', function() {
+       infowindow.open(map, marker);}) 
+        })   
+          })})
+}
+      console.log("showing plant richness")
+       
+ 
+  function insects() {
+    d3.json("data.json", function(err, data) {
+      var images = d3.select("body").selectAll("images")	
+          .data(data.features) 
+          .enter()
+          .each(function(d) {  
+             var features = [
+                {position: new google.maps.LatLng(d.Latitude - 0.000025, d.Longitude - 0.000130),
+                  type: 'InsectData'},]
+          features.forEach(function(feature) {
+              var marker = new google.maps.Marker({
+                position: feature.position,
+                icon: icons[feature.type].icon,
+                anchor: new google.maps.Point(feature.position),
+                map: map,})
+              
+    var contentString = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+'<div id="bodyContent">'+
+        '<p><b>Insect Data</b> </p>'+
+        '</div>'+'</div>';
+    
+    var infowindow = new google.maps.InfoWindow({
+          content: contentString + "Insect Richness: " + d.InsectRichness + " insect(s)" + "<br/>" + "Insect Diversity: " + d.InsectDiversity})
+    marker.addListener('click', function() {
+       infowindow.open(map, marker);}) 
+              })   
+          })})
+     
+      
+    console.log("showing insect richness")}
+    
+   function soilmoisture() {
+    d3.json("data.json", function(err, data) {
+      var images = d3.select("body").selectAll("images")	
+          .data(data.features) 
+          .enter()
+          .each(function(d) {  
+            var features = [
+               {position: new google.maps.LatLng(d.Latitude - 0.00012, d.Longitude - 0.000135),
+          		  type: 'SoilMoisture'},]
+             console.log("soil moisture checked")
+          features.forEach(function(feature) {
+              var marker = new google.maps.Marker({
+                position: feature.position,
+                icon: icons[feature.type].icon,
+                anchor: new google.maps.Point(feature.position),
+                map: map,})
+              
+    var contentString = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+'<div id="bodyContent">'+
+        '<p><b>Soil Moisture</b> </p>'+
+        '</div>'+'</div>';
+    
+    var infowindow = new google.maps.InfoWindow({
+          content: contentString + d.SoilMoisture + "%"})
+    marker.addListener('click', function() {
+       infowindow.open(map, marker);}) 
+              })   
+          })})
+     
+      
+    console.log("showing soil moisture")}
+    
+    function nutrients() {
+    d3.json("data.json", function(err, data) {
+      var images = d3.select("body").selectAll("images")	
+          .data(data.features) 
+          .enter()
+          .each(function(d) {  
+            var features = [
+               {position: new google.maps.LatLng(d.Latitude - 0.00012, d.Longitude - 0.000003),
+          		  type: 'NutrientContent'},]
+             console.log("Nutrients checked")
+          features.forEach(function(feature) {
+              var marker = new google.maps.Marker({
+                position: feature.position,
+                icon: icons[feature.type].icon,
+                anchor: new google.maps.Point(feature.position),
+                map: map,})
+              
+    var contentString = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+'<div id="bodyContent">'+
+        '<p><b>Nutrient Content</b> </p>'+
+        '</div>'+'</div>';
+    
+    var infowindow = new google.maps.InfoWindow({
+          content: contentString + "Phosphorus:      " + d.P + "ppm " + "<br/>" + "Potassium: " + d.K + "ppm " + "<br/>" + "Magnesium:      " + d.Mg + "ppm " + "<br/>" + "Calcium:      " + d.Ca + "ppm "})
+    marker.addListener('click', function() {
+       infowindow.open(map, marker);}) 
+              })   
+          })})
+     
+    console.log("showing nutrient content")}
+    
+    
+    function cations() {
+    d3.json("data.json", function(err, data) {
+      var images = d3.select("body").selectAll("images")	
+          .data(data.features) 
+          .enter()
+          .each(function(d) {  
+            var features = [
+               {position: new google.maps.LatLng(d.Latitude - 0.000120, d.Longitude - 0.000065),
+          		  type: 'Cations'},]
+             console.log("Cations checked")
+          features.forEach(function(feature) {
+              var marker = new google.maps.Marker({
+                position: feature.position,
+                icon: icons[feature.type].icon,
+                anchor: new google.maps.Point(feature.position),
+                map: map,})
+              
+    var contentString = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+'<div id="bodyContent">'+
+        '<p><b>Cation Exchange Capacity</b> </p>'+
+        '</div>'+'</div>';
+    
+    var infowindow = new google.maps.InfoWindow({
+          content: contentString + d.CEC + "meq/100g"})
+    marker.addListener('click', function() {
+       infowindow.open(map, marker);}) 
+              })   
+          })})
+     
+    console.log("showing CEC")}
+		
+    
+    function pH() {
+    d3.json("data.json", function(err, data) {
+      var images = d3.select("body").selectAll("images")	
+          .data(data.features) 
+          .enter()
+          .each(function(d) {  
+            var features = [
+               {position: new google.maps.LatLng(d.Latitude - 0.000025, d.Longitude - 0.000003),
+          		  type: 'pH'},]
+             console.log("pH checked")
+          features.forEach(function(feature) {
+              var marker = new google.maps.Marker({
+                position: feature.position,
+                icon: icons[feature.type].icon,
+                anchor: new google.maps.Point(feature.position),
+                map: map,})
+              
+    var contentString = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+'<div id="bodyContent">'+
+        '<p><b>pH</b> </p>'+
+        '</div>'+'</div>';
+    
+    var infowindow = new google.maps.InfoWindow({
+          content: contentString + "pH: " + d.pH + "</br>"+ "Acidity: " + d.Acidity })
+    marker.addListener('click', function() {
+       infowindow.open(map, marker);}) 
+              })   
+          })})
+     
+    console.log("showing pH")}
+    
+    function Composition() {
+    d3.json("data.json", function(err, data) {
+      var images = d3.select("body").selectAll("images")	
+          .data(data.features) 
+          .enter()
+          .each(function(d) {  
+            var features = [
+              {position: new google.maps.LatLng(d.Latitude - 0.000075, d.Longitude - 0.000128),              
+          		  type: 'Composition'},]
+             console.log("Composition checked")
+          features.forEach(function(feature) {
+              var marker = new google.maps.Marker({
+                position: feature.position,
+                icon: icons[feature.type].icon,
+                anchor: new google.maps.Point(feature.position),
+                map: map,})
+              
+    var contentString = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+'<div id="bodyContent">'+
+        '<p><b>Soil Composition</b> </p>'+
+        '</div>'+'</div>';
+    
+    var infowindow = new google.maps.InfoWindow({
+          content: contentString + "Sand: " + d.Sand + "%" + "<br/>" + "Silt: " + d.Silt + "%" + "<br/>"+ "Clay: " + d.Clay + "%" + "</br>" + "Bulk Density: " + d.BulkDensity + "g/cm^3"})
+    marker.addListener('click', function() {
+       infowindow.open(map, marker);}) 
+              })   
+          })})
+     
+    console.log("showing composition")}
+
+    function Pressure() {
+    d3.json("data.json", function(err, data) {
+      var images = d3.select("body").selectAll("images")	
+          .data(data.features) 
+          .enter()
+          .each(function(d) {  
+            var features = [
+              {position: new google.maps.LatLng(d.Latitude - 0.000025, d.Longitude - 0.000065),              
+          		  type: 'Pressure'},]
+             console.log("Pressire checked")
+          features.forEach(function(feature) {
+              var marker = new google.maps.Marker({
+                position: feature.position,
+                icon: icons[feature.type].icon,
+                anchor: new google.maps.Point(feature.position),
+                map: map,})
+              
+    var contentString = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+'<div id="bodyContent">'+
+        '<p><b>Pressure via Penetrometer</b> </p>'+
+        '</div>'+'</div>';
+    
+    var infowindow = new google.maps.InfoWindow({
+          content: contentString + d.CM + "cm" + "<br/>" +  d.PSI + "psi" })
+    marker.addListener('click', function() {
+       infowindow.open(map, marker);}) 
+              })   
+          })})
+     
+    console.log("showing pressure")}
+
+  </script>
+ 
+</body>
